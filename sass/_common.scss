@@ -1,0 +1,114 @@
+@use "sass:map";
+
+// ------------------------------
+// カラー
+// ------------------------------
+$text-color1: #5a1620;      // 本文
+$text-color2: #fffdf8;      // 白
+$text-color3: #8a5a60;      // サブテキスト
+$main-color: #b8283a;       // 深い赤
+$main-color-light: #fbf8f1; // カード
+$main-color-dark: #8f1c2c;
+$accent-color: #ffd36b;     // マスタード
+$bg-color: #f3ede1;         // 生成り
+$bg-color-dark: #e9e1d1;
+
+// ------------------------------
+// フォント
+// ------------------------------
+$font-en: "Josefin Sans", "Futura", "Century Gothic", "Avenir Next", sans-serif;
+$font-ja: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+$font-script: "Yellowtail", "Brush Script MT", cursive;
+
+// ------------------------------
+// ブレークポイント
+// ------------------------------
+$breakpoints: (
+  'sm': 'screen and (max-width: 410px)',
+  'sp': 'screen and (max-width: 767px)',
+  'tb': 'screen and (min-width: 768px)',
+  'pc': 'screen and (min-width: 1024px)',
+  'pcl': 'screen and (min-width: 1280px)',
+);
+
+@mixin mq($breakpoint: sp) {
+  @media #{map.get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+// ------------------------------
+// 要素リセット・ベース
+// ------------------------------
+html {
+  font-size: 62.5%;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 12rem;
+  -webkit-text-size-adjust: 100%;
+  background: $bg-color-dark;
+
+  @include mq(tb) {
+    background:
+      linear-gradient(rgba($bg-color, .86), rgba($bg-color, .86)),
+      conic-gradient($main-color 25%, $bg-color 0 50%, $main-color 0 75%, $bg-color 0) 0 0 / 48px 48px fixed;
+  }
+}
+
+body {
+  max-width: 44rem;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow-x: hidden;
+  background: $bg-color;
+  color: $main-color;
+  font-family: $font-ja;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  box-shadow: 0 0 0 1px rgba($main-color, .28), 0 20px 60px rgba($text-color1, .18);
+
+  &.is-fixed {
+    overflow: hidden;
+  }
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+li {
+  list-style: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid $main-color-dark;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

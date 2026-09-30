@@ -1,0 +1,46 @@
+/* リセットCSS */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, li, dl, dt, dd,
+figure, blockquote, fieldset, legend {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}

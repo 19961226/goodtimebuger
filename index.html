@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>GOOD TIME BURGER｜テイクアウト注文</title>
+  <meta name="description" content="GOOD TIME BURGERのテイクアウト注文サイト（デモ）。バーガー・サイド・デザート・ドリンクをスマホで選んでカートに入れ、お店で受け取れます。">
+  <!-- OGP（公開時に canonical / og:url を設定） -->
+  <!-- <link rel="canonical" href=""> -->
+  <!-- <meta property="og:url" content=""> -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GOOD TIME BURGER｜テイクアウト注文">
+  <meta property="og:description" content="スマホでテイクアウト注文。選んで、カートに入れて、お店で受け取り。">
+  <meta property="og:image" content="./img/fv-poster.webp">
+  <meta property="og:site_name" content="GOOD TIME BURGER">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Yellowtail&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <!-- ローディング -->
+  <div class="loader" id="js-loader" role="status" aria-live="polite" aria-label="読み込み中">
+    <div class="check-band" aria-hidden="true"></div>
+    <div class="loader__inner">
+      <p class="loader__catch">HAVE A GOOD TIME!</p>
+      <div class="loader__plate" aria-hidden="true">
+        <div class="loader__stack">
+          <i class="loader__layer loader__layer--bun-bottom"></i>
+          <i class="loader__layer loader__layer--patty"></i>
+          <i class="loader__layer loader__layer--cheese"></i>
+          <i class="loader__layer loader__layer--lettuce"></i>
+          <i class="loader__layer loader__layer--tomato"></i>
+          <i class="loader__layer loader__layer--bun-top"></i>
+        </div>
+      </div>
+      <p class="loader__text" aria-hidden="true"><span class="loader__char">C</span><span class="loader__char">O</span><span class="loader__char">O</span><span class="loader__char">K</span><span class="loader__char">I</span><span class="loader__char">N</span><span class="loader__char">G</span><span class="loader__char">.</span><span class="loader__char">.</span><span class="loader__char">.</span></p>
+      <div class="loader__bar" aria-hidden="true"><span class="loader__bar-fill" id="js-loader-bar"></span></div>
+      <p class="loader__script">welcome!</p>
+    </div>
+    <div class="check-band" aria-hidden="true"></div>
+  </div>
+
+  <!-- ヘッダー -->
+  <header class="header" id="js-header">
+    <div class="header__inner">
+      <button class="header__logo" type="button" id="js-logo" aria-label="メニューの先頭へ">GOOD TIME BURGER</button>
+      <button class="header__cart" type="button" id="js-cart-btn" aria-label="カートを開く（0点）">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>
+        <span class="header__badge is-zero" id="js-cart-badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- メニュー画面 -->
+  <main id="js-view-menu">
+    <div class="check-band" aria-hidden="true"></div>
+
+    <!-- ファーストビュー -->
+    <section id="fv">
+      <video class="fv__video" id="js-fv-video" autoplay muted loop playsinline preload="auto" poster="./img/fv-poster.webp" aria-hidden="true">
+        <source src="./img/fv-movie.mp4" type="video/mp4">
+        <source src="./img/fv-movie.webm" type="video/webm">
+      </video>
+      <h1 class="fv__title" aria-label="GOOD TIME BURGER">
+        <span class="fv__title-line fv__title-line--top" aria-hidden="true"><span class="fv__char">G</span><span class="fv__char">O</span><span class="fv__char">O</span><span class="fv__char">D</span><span class="fv__char fv__char--space"></span><span class="fv__char">T</span><span class="fv__char">I</span><span class="fv__char">M</span><span class="fv__char">E</span></span>
+        <span class="fv__title-line fv__title-line--bottom" aria-hidden="true"><span class="fv__char">B</span><span class="fv__char">U</span><span class="fv__char">R</span><span class="fv__char">G</span><span class="fv__char">E</span><span class="fv__char">R</span></span>
+      </h1>
+      <div class="fv__row">
+        <p class="fv__lead">スマホでテイクアウト注文。<br>選んで、<em class="fv__lead-strong">カートに入れて</em>、<br>お店で受け取り。</p>
+        <div class="fv__badge"><img src="./img/takeout-badge.webp" alt="TAKE OUT welcome!" width="418" height="419"></div>
+      </div>
+      <p class="fv__note">※操作体験用のデモサイトです。実際の注文・決済は行われません。</p>
+    </section>
+
+    <!-- カテゴリタブ -->
+    <nav class="tabs" id="js-tabs" aria-label="カテゴリ">
+      <button class="tabs__item is-active" type="button" data-target="burgers" aria-current="true">BURGERS</button>
+      <button class="tabs__item" type="button" data-target="sides" aria-current="false">SIDES</button>
+      <button class="tabs__item" type="button" data-target="desserts" aria-current="false">DESSERTS</button>
+      <button class="tabs__item" type="button" data-target="drinks" aria-current="false">DRINKS &amp; PARFAITS</button>
+    </nav>
+
+    <!-- メニュー -->
+    <div class="menu__wrapper">
+      <!-- バーガー -->
+      <section id="burgers" class="menu js-menu-section" aria-labelledby="burgers-title">
+        <hgroup class="sec__title">
+          <h2 class="sec__main-title" id="burgers-title">-BURGERS-</h2>
+          <p class="sec__sub-title">バーガー</p>
+        </hgroup>
+        <ul class="menu__list">
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="b1" aria-label="アボカドとベーコンのスペシャルバーガー ¥880 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/burger-avocado.webp" alt="アボカドとベーコンのスペシャルバーガー" width="332" height="288" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">アボカドとベーコンの<br>スペシャルバーガー</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="b1" aria-label="アボカドとベーコンのスペシャルバーガーをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="b2" aria-label="プリプリ海老カツのグリルチーズバーガー ¥990 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/burger-ebi.webp" alt="プリプリ海老カツのグリルチーズバーガー" width="334" height="229" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">プリプリ海老カツの<br>グリルチーズバーガー</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="b2" aria-label="プリプリ海老カツのグリルチーズバーガーをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="b3" aria-label="照り焼きチキンのダブルバーガー ¥880 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/burger-teriyaki.webp" alt="照り焼きチキンのダブルバーガー" width="339" height="264" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">照り焼きチキンの<br>ダブルバーガー</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="b3" aria-label="照り焼きチキンのダブルバーガーをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="b4" aria-label="粗挽きビーフとチーズのクラシックバーガー ¥990 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/burger-beef.webp" alt="粗挽きビーフとチーズのクラシックバーガー" width="336" height="251" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">粗挽きビーフとチーズの<br>クラシックバーガー</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="b4" aria-label="粗挽きビーフとチーズのクラシックバーガーをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+        </ul>
+        <!-- VALUE SET -->
+        <div class="value-set">
+          <h3 class="value-set__title">VALUE SET</h3>
+          <ul class="value-set__list">
+            <li class="value-set__item"><span class="value-set__name">ドリンクSET</span><b class="value-set__price">+¥350</b></li>
+            <li class="value-set__item"><span class="value-set__name">ポテト・ドリンクSET</span><b class="value-set__price">+¥550</b></li>
+            <li class="value-set__item"><span class="value-set__name">ポテト・ドリンク・サラダSET</span><b class="value-set__price">+¥1,100</b></li>
+          </ul>
+          <p class="value-set__drinks"><strong class="value-set__drinks-title">〈 ドリンクは以下からお選びください 〉</strong>コーヒー（アイス or ホット）／ 紅茶（アイス or ホット）／ 炭酸水 ／ オレンジジュース ／ グレープジュース</p>
+          <p class="value-set__hint">バーガーをタップしてセットを選べます</p>
+        </div>
+      </section>
+      <!-- サイド -->
+      <section id="sides" class="menu js-menu-section" aria-labelledby="sides-title">
+        <hgroup class="sec__title">
+          <h2 class="sec__main-title" id="sides-title">-SIDES-</h2>
+          <p class="sec__sub-title">サイド</p>
+        </hgroup>
+        <ul class="menu__list">
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="s1" aria-label="フレンチフライのハーブソルト仕立て ¥880 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/side-fries.webp" alt="フレンチフライのハーブソルト仕立て" width="442" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">フレンチフライの<br>ハーブソルト仕立て</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="s1" aria-label="フレンチフライのハーブソルト仕立てをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="s2" aria-label="サクサクイカフライのバスケット ¥990 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/side-squid.webp" alt="サクサクイカフライのバスケット" width="443" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">サクサクイカフライの<br>バスケット</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="s2" aria-label="サクサクイカフライのバスケットをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="s3" aria-label="サクサクチキン〈1ピース〉 ¥880 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/side-chicken.webp" alt="サクサクチキン〈1ピース〉" width="443" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">サクサクチキン<br>〈1ピース〉</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="s3" aria-label="サクサクチキン〈1ピース〉をカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="s4" aria-label="スパイシーシュリンプのチリマヨフリット ¥990 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/side-shrimp.webp" alt="スパイシーシュリンプのチリマヨフリット" width="443" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">スパイシーシュリンプの<br>チリマヨフリット</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="s4" aria-label="スパイシーシュリンプのチリマヨフリットをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+        </ul>
+      </section>
+      <!-- デザート -->
+      <section id="desserts" class="menu js-menu-section" aria-labelledby="desserts-title">
+        <hgroup class="sec__title">
+          <h2 class="sec__main-title" id="desserts-title">-DESSERTS-</h2>
+          <p class="sec__sub-title">デザート</p>
+        </hgroup>
+        <ul class="menu__list">
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="d1" aria-label="焼きたてチェリーパイとバニラアイス ¥880 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/dessert-cherrypie.webp" alt="焼きたてチェリーパイとバニラアイス" width="443" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">焼きたてチェリーパイと<br>バニラアイス</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="d1" aria-label="焼きたてチェリーパイとバニラアイスをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="d2" aria-label="濃厚チョコレートナッツブラウニー ¥990 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/dessert-brownie.webp" alt="濃厚チョコレートナッツブラウニー" width="443" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">濃厚チョコレート<br>ナッツブラウニー</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="d2" aria-label="濃厚チョコレートナッツブラウニーをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="d3" aria-label="特製クラシックプリン ¥880 詳細を開く">
+                <div class="menu__img menu__img--pill"><img src="./img/dessert-pudding.webp" alt="特製クラシックプリン" width="443" height="272" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">特製クラシック<br>プリン</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="d3" aria-label="特製クラシックプリンをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+        </ul>
+      </section>
+      <!-- ドリンク &amp; パフェ -->
+      <section id="drinks" class="menu js-menu-section" aria-labelledby="drinks-title">
+        <hgroup class="sec__title">
+          <h2 class="sec__main-title" id="drinks-title">-DRINKS &amp; PARFAITS-</h2>
+          <p class="sec__sub-title">ドリンク &amp; パフェ</p>
+        </hgroup>
+        <ul class="menu__list">
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="k1" aria-label="昔ながらのクリームソーダ ¥880 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/drink-creamsoda.webp" alt="昔ながらのクリームソーダ" width="317" height="372" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">昔ながらの<br>クリームソーダ</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="k1" aria-label="昔ながらのクリームソーダをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="k2" aria-label="しゅわっとレモンのクラフトレモネード ¥990 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/drink-lemonade.webp" alt="しゅわっとレモンのクラフトレモネード" width="233" height="370" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">しゅわっとレモンの<br>クラフトレモネード</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="k2" aria-label="しゅわっとレモンのクラフトレモネードをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="k3" aria-label="濃厚チョコレートのシェイク ¥880 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/drink-shake.webp" alt="濃厚チョコレートのシェイク" width="248" height="368" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">濃厚チョコレートの<br>シェイク</h3>
+                <p class="menu__price">¥880</p>
+                <button class="menu__add" type="button" data-add="k3" aria-label="濃厚チョコレートのシェイクをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="k4" aria-label="フルーツスペシャルパフェ ¥990 詳細を開く">
+                <div class="menu__img menu__img--cut"><img src="./img/drink-parfait.webp" alt="フルーツスペシャルパフェ" width="318" height="427" loading="lazy" decoding="async"></div>
+                <h3 class="menu__name">フルーツ<br>スペシャルパフェ</h3>
+                <p class="menu__price">¥990</p>
+                <button class="menu__add" type="button" data-add="k4" aria-label="フルーツスペシャルパフェをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="x1" aria-label="コーヒー ¥550 詳細を開く">
+                <div class="menu__img menu__img--icon"><span class="menu__icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 16h24l-3 26H15z"/><path d="M10 16h28M26 16l4-11 6 1"/><path d="M14 26h20"/></svg></span></div>
+                <h3 class="menu__name">コーヒー</h3>
+                <p class="menu__price">¥550</p>
+                <button class="menu__add" type="button" data-add="x1" aria-label="コーヒーをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="x2" aria-label="紅茶 ¥550 詳細を開く">
+                <div class="menu__img menu__img--icon"><span class="menu__icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 16h24l-3 26H15z"/><path d="M10 16h28M26 16l4-11 6 1"/><path d="M14 26h20"/></svg></span></div>
+                <h3 class="menu__name">紅茶</h3>
+                <p class="menu__price">¥550</p>
+                <button class="menu__add" type="button" data-add="x2" aria-label="紅茶をカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="x3" aria-label="炭酸水 ¥550 詳細を開く">
+                <div class="menu__img menu__img--icon"><span class="menu__icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 16h24l-3 26H15z"/><path d="M10 16h28M26 16l4-11 6 1"/><path d="M14 26h20"/></svg></span></div>
+                <h3 class="menu__name">炭酸水</h3>
+                <p class="menu__price">¥550</p>
+                <button class="menu__add" type="button" data-add="x3" aria-label="炭酸水をカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="x4" aria-label="オレンジジュース ¥550 詳細を開く">
+                <div class="menu__img menu__img--icon"><span class="menu__icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 16h24l-3 26H15z"/><path d="M10 16h28M26 16l4-11 6 1"/><path d="M14 26h20"/></svg></span></div>
+                <h3 class="menu__name">オレンジジュース</h3>
+                <p class="menu__price">¥550</p>
+                <button class="menu__add" type="button" data-add="x4" aria-label="オレンジジュースをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+            <li class="menu__item">
+              <div class="menu__card js-popUp" role="button" tabindex="0" data-id="x5" aria-label="グレープジュース ¥550 詳細を開く">
+                <div class="menu__img menu__img--icon"><span class="menu__icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 16h24l-3 26H15z"/><path d="M10 16h28M26 16l4-11 6 1"/><path d="M14 26h20"/></svg></span></div>
+                <h3 class="menu__name">グレープジュース</h3>
+                <p class="menu__price">¥550</p>
+                <button class="menu__add" type="button" data-add="x5" aria-label="グレープジュースをカートに追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </li>
+        </ul>
+        <p class="menu__note">コーヒー（アイス or ホット）／ 紅茶（アイス or ホット）／ 炭酸水 ／ オレンジジュース ／ グレープジュース　各 ¥550</p>
+      </section>
+    </div>
+
+    <!-- フッター -->
+    <footer class="footer">
+      <p class="footer__script">welcome!</p>
+      <p class="footer__text">商品名・価格・写真はメニュー表のデザインより</p>
+      <p class="footer__text">※実際の注文送信・決済は行われません</p>
+    </footer>
+    <div class="check-band" aria-hidden="true"></div>
+  </main>
+
+  <!-- 注文確認 -->
+  <section id="confirm" hidden aria-labelledby="confirm-title">
+    <hgroup class="sec__title confirm__title">
+      <h2 class="sec__main-title" id="confirm-title">CHECK</h2>
+      <p class="sec__sub-title">ご注文内容の確認</p>
+    </hgroup>
+    <div class="receipt" id="js-receipt"></div>
+    <form class="confirm__form" id="js-order-form" novalidate>
+      <div class="confirm__field">
+        <label class="confirm__label" for="js-pickup-name">お受け取りのお名前<small class="confirm__label-sub">必須</small></label>
+        <input class="confirm__input" id="js-pickup-name" name="pickupName" type="text" autocomplete="name" placeholder="例：ヤマダ タロウ" maxlength="30" aria-describedby="js-name-error">
+        <p class="confirm__error" id="js-name-error" role="alert" hidden>お名前を入力してください。お受け取りの際にお呼びします。</p>
+      </div>
+      <div class="confirm__field">
+        <label class="confirm__label" for="js-pickup-time">お受け取り時間<small class="confirm__label-sub">20分後以降・10分刻み</small></label>
+        <select class="confirm__select" id="js-pickup-time" name="pickupTime"></select>
+      </div>
+      <p class="notice">※これは操作体験用のデモです。「注文を確定する」を押しても、実際の注文・決済は行われません。</p>
+      <div class="confirm__actions">
+        <button class="btn" type="submit">注文を確定する</button>
+        <button class="btn btn--ghost" type="button" id="js-back-cart">カートに戻る</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 注文完了 -->
+  <section id="complete" hidden aria-labelledby="js-thanks">
+    <div class="complete__stage" id="js-burger-stage" aria-hidden="true"></div>
+    <h2 class="complete__thanks" id="js-thanks">Thank you!</h2>
+    <div class="complete__info" id="js-complete-info">
+      <p class="complete__lead">ご注文を受け付けました（デモ）</p>
+      <dl class="complete__ticket">
+        <div class="complete__row"><dt>注文番号</dt><dd class="complete__value complete__value--no" id="js-order-no"></dd></div>
+        <div class="complete__row"><dt>お名前</dt><dd class="complete__value" id="js-order-name"></dd></div>
+        <div class="complete__row"><dt>お受け取り時間</dt><dd class="complete__value" id="js-order-time"></dd></div>
+      </dl>
+      <p class="notice complete__note">デモのため、実際の注文は送信されていません。</p>
+      <button class="btn complete__btn" type="button" id="js-back-menu">メニューに戻る</button>
+    </div>
+  </section>
+
+  <!-- 暗幕 -->
+  <div class="overlay" id="js-overlay"></div>
+
+  <!-- 商品詳細 -->
+  <div class="detail" id="js-detail" role="dialog" aria-modal="true" aria-labelledby="js-detail-name">
+    <div class="detail__band" aria-hidden="true"></div>
+    <div class="detail__head">
+      <button class="close-btn" type="button" id="js-detail-close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="detail__body" id="js-detail-body"></div>
+    <div class="detail__foot">
+      <div class="qty" role="group" aria-label="数量">
+        <button class="qty__btn" type="button" id="js-qty-minus" aria-label="1つ減らす">−</button>
+        <output class="qty__num" id="js-qty-num" aria-live="polite">1</output>
+        <button class="qty__btn" type="button" id="js-qty-plus" aria-label="1つ増やす">＋</button>
+      </div>
+      <button class="btn" type="button" id="js-detail-add">カートに入れる <b class="btn__price" id="js-detail-price">¥0</b></button>
+    </div>
+  </div>
+
+  <!-- カート -->
+  <aside class="cart" id="js-cart" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="cart__head">
+      <h2 class="cart__title" id="cart-title">CART<small class="cart__count" id="js-cart-count">0点</small></h2>
+      <button class="close-btn" type="button" id="js-cart-close" aria-label="カートを閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="cart__list" id="js-cart-list"></div>
+    <div class="cart__foot">
+      <div class="cart__sum"><span>小計（<span id="js-sum-qty">0</span>点）</span><b id="js-sum-sub">¥0</b></div>
+      <div class="cart__sum cart__sum--total"><span>合計</span><b id="js-sum-total">¥0</b></div>
+      <button class="btn" type="button" id="js-to-confirm">注文内容を確認する</button>
+    </div>
+  </aside>
+
+  <!-- JS -->
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
